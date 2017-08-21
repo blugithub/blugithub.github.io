@@ -1,22 +1,37 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <title>Meine Seite</title>
-    <link href="styles/style.css" rel="stylesheet" type="text/css">
-  </head>
-  <body>
-  <h1>Meine Seite ist die coolste!</h1>
-    <img src="images/20150501-chillen-im-gruenen.jpg" alt="Chillen im Grünen">
-    <p>At Mozilla, we’re a global community of</p>
-    <ul>
-        <li>technologists</li>
-        <li>thinkers</li>
-        <li>builders</li>
-    </ul>
-    <p>working together ... </p>
-    <a href="https://www.mozilla.org/en-US/about/manifesto/">Mein Link</a>
-    <button>Wechsle Benutzer</button>
-    <script src="scripts/main.js"></script>
-  </body>
-</html> 
+    <html>
+        <head>
+            <meta charset="utf-8">
+            <title>Nummer-Ratespiel</title>
+            <style>
+                html {
+                font-family: sans-serif;
+                }
+                body {
+                    width: 50%;
+                    max-width: 800px;
+                    min-width: 480px;
+                    margin: 0 auto;
+                }
+                .lastResult {
+                    color: white;
+                    padding: 3px;
+                }
+            </style>
+        </head>
+        <body>
+            <h1>Nummer-Ratespiel</h1>
+            <p>Wir haben eine Zufallszahl zwischen 1 und 100 ausgewählt. Deine Aufgabe ist es diese in nicht mehr als 10 Versuchen zu erraten. Nach jedem Versuch verraten wir Dir, ob Dein Tipp zu hoch oder zu niedrig angesetzt war.</p>
+            <div class="form">
+                <label for="guessField">Gib Deinen Tipp ein: </label>
+                <input type="text" id="guessField" class="guessField">
+                <input type="submit" value="Abschicken" class="guessSubmit">
+            </div>
+            <div class="resultParas">
+                <p class="guesses"></p>
+                <p class="lastResult"></p>
+                <p class="lowOrHi"></p>
+            </div>
+            <script src="scripts/main.js"></script>
+        </body>
+</html>
