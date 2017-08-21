@@ -1,51 +1,60 @@
-var myHeading = document.querySelector('h1');
-/*
- * myHeading.textContent = 'Hello world!';
- */
-var icecream = 'strawberry'
+var randomNumber = Math.floor(Math.random() * 100) + 1;
+var guesses = document.querySelector('.guesses');
+var lastResult = document.querySelector('.lastResult');
+var lowOrHi = document.querySelector('.lowOrHi');
+var guessSubmit = document.querySelector('.guessSubmit');
+var guessField = document.querySelector('.guessField');
+var guessCount = 1;var resetButton;
 
-function testChocolate(str) {
-var result = '';
-  if (icecream === 'chocolate') {
-    result = 'Yay, we got chocolate-icecream'
-    } else {
-    result = 'Oh man, but I like chocolate best.'
+function checkGuess() {
+    var userGuess = Number(guessField.value);
+    if (guessCount === 1) {
+        guesses.textContent = 'Geratene Zahlen: ';
     }
-    return result
-}
-
-// alert(testChocolate(icecream))
-
-var meinHTML = document.querySelector('html')
-meinHTML.onclick = alert('Aua, aufhörn!')
-
-var myImage = document.querySelector('img');
-
-myImage.onclick = function() {
-    var mySrc = myImage.getAttribute('src');
-    if(mySrc === 'images/20150501-chillen-im-gruenen.jpg') {
-      myImage.setAttribute ('src','images/IMG_4128.JPG');
+    guesses.textContent += userGuess + ' ';
+    if (userGuess === randomNumber) {
+        lastResult.textContent = 'Gratuliere! Du hast es erraten.';
+        lastResult.style.backgroundColor = 'green';
+        lowOrHi.textContent = ' ';
+        setGameOver();
+    } else if (guessCount === 10) {
+        lastResult.textContent = '!!!Game Over!!! Die Zufallszahl war ' + randomNumber + '.';
+        setGameOver();
     } else {
-      myImage.setAttribute ('src','images/20150501-chillen-im-gruenen.jpg');
+        lastResult.textContent = 'Das ist leider falsch.';
+        lastResult.style.backgroundColor = 'red';
+        if (userGuess < randomNumber) {
+            lowOrHi.textContent = 'Dein letzter Tipp war zu niedrig.';
+        }  else {
+            lowOrHi.textContent = 'Dein letzter Tipp war zu hoch.';
+        }
     }
+    guessCount++;
+    guessField.value = '';
+    guessField.focus();
+}
+guessSubmit.addEventListener('click', checkGuess);
+
+function setGameOver() {
+    guessField.disabled = true;
+    guessSubmit.disabled = true;
+    resetButton = document.createElement('button');
+    resetButton.textContent = 'Spiele noch einmal';
+    document.body.appendChild(resetButton);
+    resetButton.addEventListener('click', resetGame)
 }
 
-var myButton = document.querySelector('button');
-var myHeading = document.querySelector('h1');
-
-function setUserName() {
-  var myName = prompt('Bitte gib Deinen Namen ein.');
-  localStorage.setItem('name', myName);
-  myHeading.textContent = myName + 's Seite ist die coolste!';
-}
-
-if(!localStorage.getItem('name')) {
-  setUserName();
-} else {
-  var storedName = localStorage.getItem('name');
-  myHeading.textContent = myName + 's Seite ist die coolste!';
-}
-
-myButton.onclick = function() {
-  setUserName();
+function resetGame() {
+    guessCount = 1;
+    var resetParas = document.querySelectorAll('.resultParas p');
+    for (var i = 0; i < resetParas.length ; i++) {
+        resetParas[i].textContent = '';
+    }
+    resetButton.parentNode.removeChild(resetButton);
+    guessField.disabled = false;
+    guessSubmit.disabled = false;
+    guessField.value = '';
+    guessField.focus();
+    lastResult.style.backgroundColor = 'white';
+    randomNumber = Math.floor(Math.random() * 100) + 1;
 }
